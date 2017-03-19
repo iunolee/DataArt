@@ -1,0 +1,17 @@
+{
+  "name": "ARTicle_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "watson.js",
+  "dependencies": {
+    "firebase": "^3.6.10",
+    "watson-developer-cloud": "^2.22.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
