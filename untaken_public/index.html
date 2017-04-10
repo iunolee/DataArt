@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>UNTAKEN</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arvo:700|Chivo:700,900" rel="stylesheet">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+        #menu {
+            width: 100vw;
+            height: 20vh;
+            top: 20vh;
+            text-align: center;
+            font-size: 100%;
+            display: table-cell;
+            vertical-align: middle;
+            background: white;
+            line-height: 220%;
+        }
+
+        #map {
+            position: absolute;
+            top: 20vh;
+            left: 0;
+            width: 100vw;
+            height: 80vh;
+            overflow: hidden;
+        }
+        /* Optional: Makes the sample page fill the window. */
+
+        .btn {
+            border-radius: 50%;
+            height: 68px;
+            width: 68px;
+            font-family: 'Arvo', serif;
+            color: #3d3d3d;
+            font-size: 0.7em;
+            background: white;
+            padding: 8px 3px 3px 3px;
+            border: solid #3d3d3d 1px;
+            text-decoration: none;
+            font-family: 'Chivo', sans-serif;
+            font-weight: 900;
+        }
+
+        .btn:hover {
+            color: white;
+            background: #3d3d3d;
+        }
+
+        #buttonNYC {
+            position: absolute;
+            display: block;
+            top: 2%;
+            left: 20%;
+        }
+
+        #buttonSEOUL {
+            position: absolute;
+            display: block;
+            top: 2%;
+            left: 30%;
+        }
+
+        #buttonPARIS {
+            position: absolute;
+            display: block;
+            top: 2%;
+            left: 40%;
+        }
+
+        #buttonMEDELLIN {
+            position: absolute;
+            display: block;
+            top: 2%;
+            left: 50%;
+        }
+
+        #buttonBAGDAD {
+            position: absolute;
+            display: block;
+            top: 2%;
+            left: 60%;
+        }
+
+        #buttonNAIROBI {
+            position: absolute;
+            display: block;
+            top: 2%;
+            left: 70%;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        h1 {
+            color: #3d3d3d;
+            font-size: 1.25em;
+            font-family: 'Arvo', serif;
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="menu">
+        <button class="btn" id="buttonNYC">untaken NYC</button>
+        <button class="btn" id="buttonSEOUL">untaken SEOUL</button>
+        <button class="btn" id="buttonPARIS">untaken PARIS</button>
+        <button class="btn" id="buttonMEDELLIN">untaken MEDELLIN</button>
+        <button class="btn" id="buttonBAGDAD">untaken BAGDAD</button>
+        <button class="btn" id="buttonNAIROBI">untaken NAIROBI</button>
+
+        </br>
+        </br>
+
+        <h1 id="locationTitle"><h1>
+        </div>
+    <div id="map"></div>
+
+    <script>
+        var lat;
+        var lon;
+        var finalLat;
+        var finalLon;
+        var map;
+        var script;
+        var locationList = [];
+        var buttonNYC = document.getElementById('buttonNYC');
+        var buttonSEOUL = document.getElementById('buttonSEOUL');
+        var buttonPARIS = document.getElementById('buttonPARIS');
+        var buttonMEDELLIN = document.getElementById('buttonMEDELLIN');
+        var buttonBAGDAD = document.getElementById('buttonBAGDAD');
+        var buttonNAIROBI = document.getElementById('buttonNAIROBI');
+
+        buttonNYC.addEventListener('click', findNYC);
+        buttonSEOUL.addEventListener('click', findSEOUL);
+        buttonPARIS.addEventListener('click', findPARIS);
+        buttonMEDELLIN.addEventListener('click', findMEDELLIN);
+        buttonBAGDAD.addEventListener('click', findBAGDAD);
+        buttonNAIROBI.addEventListener('click', findNAIROBI);
+
+        var locationTitle = document.getElementById('locationTitle');
+
+        function findNYC() {
+            randomLocation(-74.25909,40.477399,-73.700272,40.917577);
+
+            function randomLocation(lonMax, latMin, lonMin, latMax) {
+                var preLat = (Math.random() * (latMax - latMin)) + latMin;
+                var preLon = (Math.random() * (lonMax - lonMin)) + lonMin;
+                lat = preLat.toFixed(6);
+                lon = preLon.toFixed(6);
+                checkStreetview();
+            }
+
+            function checkStreetview() {
+                var url = "https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=" + lat + "," + lon + "&fov=90&heading=235&pitch=10&key=";
+                $.getJSON(url, function(data) {
+                    console.log(data.status);
+                    if (data.status == "ZERO_RESULTS") {
+                        loadInfo();
+                    } else {
+                        findNYC();
+                    }
+                });
+            }
+        }
+
+        function findSEOUL() {
+            randomLocation(126.763985,37.428539,127.185036,37.701393);
+
+            function randomLocation(lonMax, latMin, lonMin, latMax) {
+                var preLat = (Math.random() * (latMax - latMin)) + latMin;
+                var preLon = (Math.random() * (lonMax - lonMin)) + lonMin;
+                lat = preLat.toFixed(6);
+                lon = preLon.toFixed(6);
+                checkStreetview();
+            }
+
+            function checkStreetview() {
+                var url = "https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=" + lat + "," + lon + "&fov=90&heading=235&pitch=10&key=";
+                $.getJSON(url, function(data) {
+                    console.log(data.status);
+                    if (data.status == "ZERO_RESULTS") {
+                        loadInfo();
+                    } else {
+                        findSEOUL();
+                    }
+                });
+            }
+        }
+
+        function findPARIS() {
+            randomLocation(2.224122,48.815575,2.46976,48.902157);
+
+            function randomLocation(lonMax, latMin, lonMin, latMax) {
+                var preLat = (Math.random() * (latMax - latMin)) + latMin;
+                var preLon = (Math.random() * (lonMax - lonMin)) + lonMin;
+                lat = preLat.toFixed(6);
+                lon = preLon.toFixed(6);
+                checkStreetview();
+            }
+
+            function checkStreetview() {
+                var url = "https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=" + lat + "," + lon + "&fov=90&heading=235&pitch=10&key=";
+                $.getJSON(url, function(data) {
+                    console.log(data.status);
+                    if (data.status == "ZERO_RESULTS") {
+                        loadInfo();
+                    } else {
+                        findPARIS();
+                    }
+                });
+            }
+        }
+
+        function findMEDELLIN() {
+            randomLocation(-75.719374,6.163719,-75.47341,6.373637);
+
+            function randomLocation(lonMax, latMin, lonMin, latMax) {
+                var preLat = (Math.random() * (latMax - latMin)) + latMin;
+                var preLon = (Math.random() * (lonMax - lonMin)) + lonMin;
+                lat = preLat.toFixed(6);
+                lon = preLon.toFixed(6);
+                checkStreetview();
+            }
+
+            function checkStreetview() {
+                var url = "https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=" + lat + "," + lon + "&fov=90&heading=235&pitch=10&key=";
+                $.getJSON(url, function(data) {
+                    console.log(data.status);
+                    if (data.status == "ZERO_RESULTS") {
+                        loadInfo();
+                    } else {
+                        findMEDELLIN();
+                    }
+                });
+            }
+        }
+
+        function findBAGDAD() {
+            randomLocation(44.155984,33.188313,44.555826,33.435059);
+
+            function randomLocation(lonMax, latMin, lonMin, latMax) {
+                var preLat = (Math.random() * (latMax - latMin)) + latMin;
+                var preLon = (Math.random() * (lonMax - lonMin)) + lonMin;
+                lat = preLat.toFixed(6);
+                lon = preLon.toFixed(6);
+                checkStreetview();
+            }
+
+            function checkStreetview() {
+                var url = "https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=" + lat + "," + lon + "&fov=90&heading=235&pitch=10&key=";
+                $.getJSON(url, function(data) {
+                    console.log(data.status);
+                    if (data.status == "ZERO_RESULTS") {
+                        loadInfo();
+                    } else {
+                        findBAGDAD();
+                    }
+                });
+            }
+        }
+
+        function findNAIROBI() {
+            randomLocation(36.645419,-1.444863,37.049375,-1.164744);
+
+            function randomLocation(lonMax, latMin, lonMin, latMax) {
+                var preLat = (Math.random() * (latMax - latMin)) + latMin;
+                var preLon = (Math.random() * (lonMax - lonMin)) + lonMin;
+                lat = preLat.toFixed(6);
+                lon = preLon.toFixed(6);
+                checkStreetview();
+            }
+
+            function checkStreetview() {
+                var url = "https://maps.googleapis.com/maps/api/streetview/metadata?size=600x300&location=" + lat + "," + lon + "&fov=90&heading=235&pitch=10&key=";
+                $.getJSON(url, function(data) {
+                    console.log(data.status);
+                    if (data.status == "ZERO_RESULTS") {
+                        loadInfo();
+                    } else {
+                        findNAIROBI();
+                    }
+                });
+            }
+        }
+
+
+        function loadInfo(id) {
+
+            var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=en&key=";
+
+            $.getJSON(url, function(data) {
+                getMap();
+                var address = data.results[0].formatted_address;
+                console.log(address);
+                locationTitle.innerHTML = address;
+            });
+        }
+
+
+        function getMap() {
+           console.log(lat, lon);
+            var script = document.createElement("script");
+            script.src = "https://maps.googleapis.com/maps/api/js?key=&language=en&callback=initMap";
+            $("body").append(script);
+        }
+
+        function initMap() {
+
+            var myLatLng = {
+                lat: Number(lat),
+                lng: Number(lon)
+            };
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                mapTypeId: 'satellite',
+                zoom: 18,
+                zoomControl: false,
+                mapTypeControl: false,
+                scaleControl: false,
+                streetViewControl: false,
+                rotateControl: false,
+                fullscreenControl: false
+            });
+
+            var goldStar = {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: 'white',
+                fillOpacity: 0,
+                scale: 480,
+                strokeColor: 'white',
+                strokeWeight: 550
+            };
+
+            var marker = new google.maps.Marker({
+                position: map.getCenter(),
+                icon: goldStar,
+                map: map
+            });
+
+            map.setTilt(45);
+        }
+    </script>
+</body>
+</html>
